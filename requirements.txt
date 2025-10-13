@@ -1,0 +1,16 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+plotly
+yfinance
+pandas_datareader
+sqlalchemy
+jupyter
+notebook
+xgboost
+tensorflow
+statsmodels
+dash
+streamlit

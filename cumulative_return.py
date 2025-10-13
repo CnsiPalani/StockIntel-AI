@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
 import seaborn as sns
-from market_summary import preprocess_data, load_data
+from market_summary import preprocess_data
 
 
 def cumulative_return(df):
@@ -17,7 +17,7 @@ def cumulative_return(df):
     all_df['Daily Return'] = (all_df['close'] - all_df['Prev Close']) / all_df['Prev Close']
     all_df['Daily Return'] = all_df['Daily Return'].fillna(0)
 
-    # Cumulative return for each stock
+    # Cumulative sum return for each stock
     all_df['Cumulative Return'] = all_df.groupby('Ticker')['Daily Return'].cumsum()
 
     # Get last cumulative return for each stock
@@ -28,7 +28,6 @@ def cumulative_return(df):
     top5_df = all_df[all_df['Ticker'].isin(top5_cum)]
 
     # Plot cumulative return line chart
-    st.markdown("---")
     st.subheader("📈 Cumulative Return for Top 5 Performing Stocks")
 
     fig, ax = plt.subplots(figsize=(10, 5))

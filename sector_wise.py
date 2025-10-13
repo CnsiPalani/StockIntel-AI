@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
 import seaborn as sns
-from market_summary import preprocess_data, load_data
+from market_summary import preprocess_data
 
 
 def sector_wise(df):
@@ -33,11 +33,8 @@ def sector_wise(df):
     # Sort by performance
     sector_perf = sector_perf.sort_values('Yearly Return', ascending=False)
 
-    # Show sector performance table
-    st.markdown("---")
-    st.subheader("Sector-wise Performance")
-    st.dataframe(sector_perf, use_container_width=True)
-
+    
+    st.subheader("📈  Top 10 Sector-wise Performance")
     # Bar chart for sector performance
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.bar(sector_perf['Sector'], sector_perf['Yearly Return'], color='teal')
@@ -46,3 +43,17 @@ def sector_wise(df):
     ax.set_title('Average Yearly Return by Sector')
     plt.xticks(rotation=45)
     st.pyplot(fig)
+
+    # Interactive sector selection
+    sector_list = sector_perf['Sector'].tolist()
+    selected_sector = st.selectbox('Select a sector to view stock details:', sector_list)
+
+    # Show stock details for selected sector
+    st.markdown(f"#### Stocks in {selected_sector} sector")
+    sector_stocks = summary_sector_df[summary_sector_df['Sector'] == selected_sector][['Ticker', 'Yearly Return']]
+    st.dataframe(sector_stocks, use_container_width=True)
+
+    # Show sector performance table
+    st.markdown("---")
+    st.subheader("Sector-wise Performance")
+    st.dataframe(sector_perf, use_container_width=True)

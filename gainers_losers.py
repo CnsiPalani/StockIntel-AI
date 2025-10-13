@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
 import seaborn as sns
-from market_summary import preprocess_data, load_data
+from market_summary import preprocess_data
 
 
 def gainers_losers(df):
@@ -29,7 +29,6 @@ def gainers_losers(df):
     # Get sorted list of months
     months = sorted(monthly_returns_df['Month'].unique())
 
-    st.markdown("---")
     st.subheader("Top 5 Gainers and Losers by Month")
 
     for month in months:
