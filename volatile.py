@@ -26,7 +26,9 @@ def volatile(df):
 
     # Bar chart for volatility
     fig, ax = plt.subplots(figsize=(10, 4))
-    ax.bar(top10_vol['Ticker'], top10_vol['Volatility'], color='orange')
+    # Generate a color palette with as many colors as there are bars
+    colors = plt.cm.tab10(np.linspace(0, 1, len(top10_vol)))
+    ax.bar(top10_vol['Ticker'], top10_vol['Volatility'], color=colors)
     ax.set_xlabel('Stock Ticker')
     ax.set_ylabel('Volatility (Std Dev of Daily Returns)')
     ax.set_title('Top 10 Most Volatile Stocks (Past Year)')
@@ -61,13 +63,15 @@ def volatile1(df):
         st.subheader("Top 10 Most Volatile Stocks Bar Chart")
 
         # Bar chart for volatility /
-        fig, ax = plt.subplots(figsize=(10, 4))
-        ax.bar(top10_vol['Ticker'], top10_vol['Volatility'], color='orange')
-        ax.set_xlabel('Stock Ticker')
-        ax.set_ylabel('Volatility (Std Dev of Daily Returns)')
-        ax.set_title('Top 10 Most Volatile Stocks (Past Year)')
-        plt.xticks(rotation=45)
-        st.pyplot(fig)
+    fig, ax = plt.subplots(figsize=(10, 4))
+    # Generate a color palette with as many colors as there are bars
+    colors = plt.cm.tab10(np.linspace(0, 1, len(top10_vol)))
+    ax.bar(top10_vol['Ticker'], top10_vol['Volatility'], color=colors)
+    ax.set_xlabel('Stock Ticker')
+    ax.set_ylabel('Volatility (Std Dev of Daily Returns)')
+    ax.set_title('Top 10 Most Volatile Stocks (Past Year)')
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
 
     with col2:
         # Box plot for volatility

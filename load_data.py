@@ -4,12 +4,11 @@ import pandas as pd
 import yaml
 import os
 import streamlit as st
-from utlity import get_connection, close_connection, execute_query, insert_bulk_data
+from utlity import insert_bulk_data
 
 
 def load_yaml_data():
     # Define source and target folders
-    conn = None
     try:
         data_dir = "C:\\Users\\Python\\datas"
         target_folder = "C:\\Users\\Python\\common_csv"
@@ -19,7 +18,6 @@ def load_yaml_data():
         if not yaml_files:
             print("No YAML files found. Please check the directory path and file extensions.")
         else:
-            os.makedirs(target_folder, exist_ok=True)
             print(f"Found {len(yaml_files)} YAML files.")
             symbol_data = {}
             for file in yaml_files:
@@ -40,8 +38,6 @@ def load_yaml_data():
                 insert_bulk_data('stock_prices', entries)
     except Exception as e:
         print(f"An error occurred: {e}")
-    finally:
-        close_connection(conn)
         
 
 if __name__ == "__main__":
